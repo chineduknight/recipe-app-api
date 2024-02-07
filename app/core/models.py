@@ -19,7 +19,10 @@ class UserManager(BaseUserManager):
         # normalization is to ensure that the case of
         # the email is always lowercase for the domain part though
         user = self.model(email=self.normalize_email(email), **extra_fields)
-        user.set_password(password)
+        user.set_password(
+            password
+        )  # the set_password encrypts the users password # noqa: E501
+        # the using=self.db makes the code robust so if the db is changed this code will still work # noqa: E501
         user.save(using=self._db)
 
         return user
