@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ["email", "password", "name"]
-        extra_kwargs = {"password": {"write_only": True, "min_length": 5}}
+        extra_kwargs = {"password": {"write_only": True, "min_length": 8}}
 
     def validate_password(self, value):
         """
@@ -28,16 +28,23 @@ class UserSerializer(serializers.ModelSerializer):
         - Contains at least one lowercase letter
         - Contains at least one special character
         """
-        if not re.findall('\d', value):
-            raise serializers.ValidationError('Password must contain at least one digit.')
-        if not re.findall('[A-Z]', value):
-            raise serializers.ValidationError('Password must contain at least one uppercase letter.')
-        if not re.findall('[a-z]', value):
-            raise serializers.ValidationError('Password must contain at least one lowercase letter.')
-        if not re.findall('[^a-zA-Z0-9]', value):
-            raise serializers.ValidationError('Password must contain at least one special character.')
+        if not re.findall(r"\d", value):  # Use raw string notation
+            raise serializers.ValidationError(
+                "Password must contain at least one digit."
+            )
+        if not re.findall(r"[A-Z]", value):  # Use raw string notation
+            raise serializers.ValidationError(
+                "Password must contain at least one uppercase letter."
+            )
+        if not re.findall(r"[a-z]", value):  # Use raw string notation
+            raise serializers.ValidationError(
+                "Password must contain at least one lowercase letter."
+            )
+        if not re.findall(r"[^a-zA-Z0-9]", value):  # Use raw string notation
+            raise serializers.ValidationError(
+                "Password must contain at least one special character."
+            )
         return value
-
 
     def create(self, validated_data):
         """Create and return a user with encrypted password."""
@@ -52,7 +59,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         # Only do so if password is passed
         if password:
-            user.set_password(password) # Again this hashes the password
+            user.set_password(password)  # Again this hashes the password
             user.save()
 
         return user

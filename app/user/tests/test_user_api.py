@@ -29,7 +29,7 @@ class PublicUserApiTests(TestCase):
         """Test creating a user is successful."""
         payload = {
             "email": "test@example.com",
-            "password": "testpass123",
+            "password": "Testpass123??**",
             "name": "Test Name",
         }
         res = self.client.post(CREATE_USER_URL, payload)
@@ -151,7 +151,7 @@ class PrivateUserApiTests(TestCase):
 
     def test_update_user_profile(self):
         """Test updating the user profile for the authenticated user."""
-        payload = {"name": "Updated name", "password": "newpassword123"}
+        payload = {"name": "Updated name", "password": "Newpassword123**"}
 
         res = self.client.patch(ME_URL, payload)
 

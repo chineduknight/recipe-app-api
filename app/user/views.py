@@ -26,6 +26,7 @@ class CreateTokenView(ObtainAuthToken):
 
 class ManageUserView(generics.RetrieveUpdateAPIView):
     """Manage the authenticated user."""
+
     # generics.RetrieveUpdateAPIView this does the GET,PATCH,PUT
 
     serializer_class = UserSerializer
