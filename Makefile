@@ -2,7 +2,7 @@ start:
 	docker-compose up
 
 lint:
-	docker-compose run --rm app sh -c "black ."
+	docker-compose run --rm app sh -c "black --line-length 79 ."
 
 test:
 	docker-compose run --rm app sh -c "black . && python manage.py test && flake8"

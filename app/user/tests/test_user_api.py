@@ -1,6 +1,8 @@
 """
 Tests for the user API.
 """
+
+from unittest import mock
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -124,7 +126,7 @@ class PrivateUserApiTests(TestCase):
     def setUp(self):
         self.user = create_user(
             email="test@example.com",
-            password="testpass123",
+            password="TestPass123??",
             name="Test Name",
         )
         self.client = APIClient()
@@ -138,8 +140,10 @@ class PrivateUserApiTests(TestCase):
         self.assertEqual(
             res.data,
             {
-                "name": self.user.name,
+                # "id": str(self.user.id), # this is another option
+                "id": mock.ANY,
                 "email": self.user.email,
+                "name": self.user.name,
             },
         )
 
