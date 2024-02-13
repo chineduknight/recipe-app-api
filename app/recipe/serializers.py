@@ -115,7 +115,11 @@ class RecipeDetailSerializer(RecipeSerializer):
     user = UserSerializer(read_only=True)
 
     class Meta(RecipeSerializer.Meta):
-        fields = RecipeSerializer.Meta.fields + ["description", "user","image"]
+        fields = RecipeSerializer.Meta.fields + [
+            "description",
+            "user",
+            "image",
+        ]
 
 
 class RecipeImageSerializer(serializers.ModelSerializer):
